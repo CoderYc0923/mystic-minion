@@ -1,0 +1,26 @@
+#app {
+  height: 100%;
+  overflow-x: hidden;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+[data-theme='dark'],
+[data-theme='dark'] * {
+  color-scheme: dark !important;
+}
+[data-theme='light'],
+[data-theme='light'] * {
+  color-scheme: light !important;
+}
+[data-theme='light'] body {
+  background-color: #eff2f5;
+}
+body {
+  padding-bottom: constant(safe-area-inset-bottom);
+  /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom);
+  /*兼容 IOS>11.2*/
+}
