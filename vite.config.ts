@@ -73,8 +73,8 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }),
 
       viteMockServe({
-        mockPath: "./mock/"
-      })
+        mockPath: './mock/',
+      }),
     ],
 
     css: {

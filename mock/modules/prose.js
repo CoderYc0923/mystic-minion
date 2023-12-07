@@ -18,16 +18,16 @@ const list = [
 
 const requests = [
   {
-    url: "/api/getProse",
-    method: "get",
+    url: '/api/getProse',
+    method: 'get',
     response: () => {
       return {
         code: 200,
-        message: "ok",
-        data: list
+        message: 'ok',
+        data: list,
       }
-    }
-  }
+    },
+  },
 ]
 
 export default requests
