@@ -12,6 +12,8 @@ import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
+import basicSsl from '@vitejs/plugin-basic-ssl'
+
 import viewport from 'postcss-mobile-forever'
 import autoprefixer from 'autoprefixer'
 
@@ -33,10 +35,18 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
 
     plugins: [
-      vue(),
+      vue({
+        template: {
+          compilerOptions: {
+            //将a-frame相关的元素都定义为自定义元素
+            isCustomElement: (tag) => tag.includes('a-')
+          }
+        }
+      }),
       vueJsx(),
       visualizer(),
       UnoCSS(),
+      basicSsl(),
 
       legacy({
         targets: ['defaults', 'not IE 11'],

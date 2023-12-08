@@ -4,6 +4,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import { createRouterScroller } from 'vue-router-better-scroller'
 import App from './App.vue'
 import router from './router'
+import 'aframe'
 
 import 'virtual:uno.css'
 

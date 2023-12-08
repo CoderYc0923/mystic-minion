@@ -30,6 +30,8 @@ watch(checked, (val) => {
       <VanCell title="💿 Mock 指南" to="mock" is-link />
 
       <VanCell title="📊 Echarts 演示" to="charts" is-link />
+
+      <VanCell title="🍉 AR Test" to="ar" is-link />
     </VanCellGroup>
   </div>
 </template>
