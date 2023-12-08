@@ -1,4 +1,4 @@
-const useSleep = (time: number) => {
+function useSleep(time: number) {
   return new Promise(reslove => setTimeout(reslove, time))
 }
 

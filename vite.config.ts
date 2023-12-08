@@ -38,10 +38,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       vue({
         template: {
           compilerOptions: {
-            //将a-frame相关的元素都定义为自定义元素
-            isCustomElement: (tag) => tag.includes('a-')
-          }
-        }
+            // 将a-frame相关的元素都定义为自定义元素
+            isCustomElement: tag => tag.includes('a-'),
+          },
+        },
       }),
       vueJsx(),
       visualizer(),

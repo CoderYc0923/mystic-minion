@@ -4,39 +4,38 @@ import '@ar-js-org/ar.js/aframe/build/aframe-ar'
 
 import useSleep from '@/utils/hooks/useSleep'
 
-var handTrackModel;
+let handTrackModel
 
-const scene = ref();
-const camera = ref();
+const scene = ref()
+const camera = ref()
 
 // back
 
-const onClickLeft = () => {
-  handTrackModel?.dispose();
+function onClickLeft() {
+  handTrackModel?.dispose()
   history.back()
 }
 
-//detectHandle
-const detectHandle = async (video: HTMLElement) => {
-  const predictions = await handTrackModel.detect(video);
+// detectHandle
+async function detectHandle(video: HTMLElement) {
+  const predictions = await handTrackModel.detect(video)
   if (predictions.length > 0) {
-    //获取手部位置
-    const handPosition = predictions[0].bbox;
+    // 获取手部位置
+    const handPosition = predictions[0].bbox
 
-    console.log('detectHandle', predictions);
+    // console.log('detectHandle', predictions)
 
-
-    //更新camera位置
+    // 更新camera位置
     camera.value.setAttribute('position', {
       x: handPosition[0],
       y: handPosition[1],
-      z: handPosition[2]
+      z: handPosition[2],
     })
   }
 }
 
-//trackhand
-const trackhand = async (video: HTMLElement) => {
+// trackhand
+async function trackhand(video: HTMLElement) {
   const defaultParams = {
     flipHorizontal: false,
     outputStride: 16,
@@ -44,31 +43,31 @@ const trackhand = async (video: HTMLElement) => {
     maxNumBoxes: 20,
     iouThreshold: 0.2,
     scoreThreshold: 0.6,
-    modelType: "ssd320fpnlite",
-    modelSize: "large",
-    bboxLineWidth: "2",
+    modelType: 'ssd320fpnlite',
+    modelSize: 'large',
+    bboxLineWidth: '2',
     fontSize: 17,
   }
   handTrackModel = await handTrack.load(defaultParams)
   setInterval(() => {
     detectHandle(video)
-  }, 1000 / 30) //每秒30帧
+  }, 1000 / 30) // 每秒30帧
 }
 
-//init
-const init = async () => {
+// init
+async function init() {
   const video = document.getElementById('arjs-video')
-  console.log('video', video);
-  const res = await handTrack.startVideo(video);
-  if (res.status) trackhand(video);
-  else console.error(`${res.msg}`);
+  const res = await handTrack.startVideo(video)
+  if (res.status)
+    trackhand(video)
+  else console.error(`${res.msg}`)
 }
 
-const unloadHandle = async () => {
-  handTrackModel?.dispose();
+async function unloadHandle() {
+  handTrackModel?.dispose()
   document.body.classList.toggle('arjs')
-  //重置ar相关事件等
-  location.reload();
+  // 重置ar相关事件等
+  location.reload()
   await useSleep(1000)
 }
 
@@ -77,37 +76,27 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-  //防止页面Ar相关配置未加载完成，导致handtrack无法挂载video
+  // 防止页面Ar相关配置未加载完成，导致handtrack无法挂载video
   setTimeout(() => {
     init()
-  },100)
+  }, 100)
 })
 
 onBeforeUnmount(unloadHandle)
-
 </script>
-
-
 
 <template>
   <VanNavBar title="🍉 AR Test" left-arrow fixed @click-left="onClickLeft" />
 
   <div class="container">
-
     <div class="data-label">
-
       AR测试
-
     </div>
 
     <div>
-
-      <a-scene vr-mode-ui="enabled: false" embedded arjs ref="scene">
-
-        <a-entity ref="camera" camera></a-entity>
-
+      <a-scene ref="scene" vr-mode-ui="enabled: false" embedded arjs>
+        <a-entity ref="camera" camera />
       </a-scene>
-
     </div>
 
     <!-- <div class="data-content">
@@ -133,7 +122,6 @@ onBeforeUnmount(unloadHandle)
       清空
 
     </VanButton> -->
-
   </div>
 </template>
 
